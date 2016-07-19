@@ -1,0 +1,16 @@
+data:
+ volumes:
+   - ..:/var/www/html/modules/hello_world
+   - ./data/content_type_vocab_hello_world:/var/www/html/modules/content_type_vocab_hello_world
+cli:
+ environment:
+   - DRUPAL_BRANCH=8.2.x
+   - MODULE_ENABLE=hello_world
+   - DRUPAL_USER=admin
+   - DRUPAL_PASSWORD=password
+db:
+ environment:
+   - MYSQL_ROOT_PASSWORD=root
+   - MYSQL_DATABASE=drupal8
+   - MYSQL_USER=drupal
+   - MYSQL_PASSWORD=thisisawesome

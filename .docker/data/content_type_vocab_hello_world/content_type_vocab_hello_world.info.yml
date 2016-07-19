@@ -1,0 +1,9 @@
+name: content type vocab hello world
+type: module
+description: 'Exposes the Hello World Article content type and Sections vocabulary for the Hello World exercise.'
+version: 1.0
+core: 8.x
+dependencies:
+  - field
+  - node
+  - taxonomy

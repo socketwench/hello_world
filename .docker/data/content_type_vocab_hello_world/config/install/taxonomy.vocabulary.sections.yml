@@ -1,0 +1,9 @@
+uuid: f48008b4-ba00-4c78-86a8-329982b436e9
+langcode: en
+status: true
+dependencies: {  }
+name: Sections
+vid: sections
+description: ''
+hierarchy: 0
+weight: 0

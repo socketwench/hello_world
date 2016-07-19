@@ -1,0 +1,28 @@
+uuid: e65e8b27-0086-4064-ae78-d94b700b94e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sections
+    - node.type.hello_world_article
+    - taxonomy.vocabulary.sections
+id: node.hello_world_article.field_sections
+field_name: field_sections
+entity_type: node
+bundle: hello_world_article
+label: Sections
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      sections: sections
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,32 @@
+uuid: feff8ad7-c940-47d4-8f92-e4e651e6ba12
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.hello_world_article.body
+    - field.field.node.hello_world_article.field_sections
+    - node.type.hello_world_article
+  module:
+    - text
+    - user
+id: node.hello_world_article.default
+targetEntityType: node
+bundle: hello_world_article
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+  field_sections:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  links:
+    weight: 100
+hidden: {  }

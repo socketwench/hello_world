@@ -1,0 +1,22 @@
+uuid: 42c51471-d897-4cb1-ac37-b2b6cc6f0e57
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.hello_world_article
+  module:
+    - text
+id: node.hello_world_article.body
+field_name: body
+entity_type: node
+bundle: hello_world_article
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary
