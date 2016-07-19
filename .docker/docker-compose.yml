@@ -1,0 +1,23 @@
+web:
+   build: web
+   ports:
+      - "80:80"
+   volumes_from:
+      - data
+   links:
+      - db
+db:
+   image: mariadb
+   ports:
+      - 3306:3306
+cli:
+   build: cli
+   volumes_from:
+      - data
+   links:
+      - db
+      - web
+data:
+   image: tianon/true
+   volumes:
+      - /var/www/html
