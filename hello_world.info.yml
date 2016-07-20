@@ -3,3 +3,5 @@ type: module
 description: Hello World
 core: 8.x
 package: Custom
+dependencies:
+  - content_type_vocab_hello_world
