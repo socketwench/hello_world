@@ -16,5 +16,9 @@ function hello_world_entity_view(array &$build, EntityInterface $entity, EntityV
       $entity->bundle() == 'hello_world_article') {
 
     // Alter build array to include message.
+    $build['hello_world'] = [
+      '#markup' => '<em>' . t('Content starts here!') . '</em>',
+      '#weight' => $build['body']['#weight'] - 1, // Just above the body.
+    ];
   }
 }
