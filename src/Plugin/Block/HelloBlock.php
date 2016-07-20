@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\Query\Sql\QueryFactory;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
+use Drupal\taxonomy\TermStorage;
 
 /**
  * Provides a 'HelloBlock' block.
@@ -31,6 +32,7 @@ class HelloBlock extends BlockBase {
   public function __construct(array $configuration, $plugin_id, $plugin_definition) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     // @todo Inject the entity query service?
+    // @todo Inject the entity_type.manager service?
   }
 
   /**
@@ -52,7 +54,7 @@ class HelloBlock extends BlockBase {
     $entity_query = \Drupal::entityQuery('node')
       ->condition('status', '1')
       ->condition('type', 'hello_world_article')
-      ->condition('field_sections.entity.name', ['About Us', 'Misc', 'News'], 'IN');
+      ->condition('field_sections.entity.tid', $this->getSelectedSections(), 'IN');
 
     $result = $entity_query->execute();
 
@@ -91,6 +93,7 @@ class HelloBlock extends BlockBase {
     return [
       'cache_max_age' => 60,
       'empty_text' => t('There are no Hello articles to display.'),
+      'terms' => [],
     ];
   }
 
@@ -105,6 +108,17 @@ class HelloBlock extends BlockBase {
       '#default_value' => $this->configuration['empty_text'],
       '#size' => 60,
       '#maxlength' => 255,
+      '#required' => TRUE,
+    ];
+
+    $this->getAllSections();
+
+    $form['terms'] = [
+      '#type' => 'checkboxes',
+      '#title' => t('Display articles in section'),
+      '#description' => t('The sections from which to display Hello World Articles.'),
+      '#options' => $this->getAllSections(),
+      '#default_value' => $this->configuration['terms'],
       '#required' => TRUE,
     ];
 
@@ -131,5 +145,37 @@ class HelloBlock extends BlockBase {
   public function blockSubmit($form, FormStateInterface $form_state) {
     $this->configuration['empty_text'] = $form_state->getValue('empty_text');
     $this->configuration['cache_max_age'] = $form_state->getValue('cache_max_age');
+    $this->configuration['terms'] = $form_state->getValue('terms');
+  }
+
+  /**
+   * Gets a list of all sections and their keys.
+   *
+   * @return array
+   *  An array of section term labels keyed by tid.
+   */
+  protected function getAllSections() {
+    $terms = \Drupal::service('entity_type.manager')
+      ->getStorage("taxonomy_term")
+      ->loadTree('sections', 0, 1, TRUE);
+
+    $out = [];
+
+    foreach ($terms as $term) {
+      $out[$term->id()] = $term->label();
+    }
+
+    return $out;
+  }
+
+  /**
+   * Get a list of selected section labels.
+   *
+   * @return array
+   *  An array of selected section labels.
+   */
+  protected function getSelectedSections() {
+    $values = array_values($this->configuration['terms']);
+    return $values;
   }
 }
