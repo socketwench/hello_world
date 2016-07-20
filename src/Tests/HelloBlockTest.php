@@ -1,11 +1,18 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: tess
- * Date: 7/20/16
- * Time: 1:25 PM
- */
-class HelloBlockTest {
+namespace Drupal\hello_world\Tests;
 
+use Drupal\simpletest\WebTestBase;
+
+/**
+ * Tests the Hello, World block.
+ *
+ * @group hello_world
+ */
+class HelloBlockTest extends HelloTestBase {
+
+  public function testHelloBlock() {
+    $this->drupalGet('node');
+    $this->assertText('WTF.');
+  }
 }
