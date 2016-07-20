@@ -5,4 +5,16 @@
  * Contains hello_world.module..
  */
 
-use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+
+/**
+ * Implements hook_entity_view().
+ */
+function hello_world_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  if ($entity->getEntityTypeId() == 'node' &&
+      $entity->bundle() == 'hello_world_article') {
+
+    // Alter build array to include message.
+  }
+}
