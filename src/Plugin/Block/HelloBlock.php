@@ -48,7 +48,13 @@ class HelloBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $build = [];
+    $build = [
+      '#attached' => [
+        'library' => [
+          'hello_world/hello_world.hello_block',
+        ],
+      ],
+    ];
 
     // Query for published Hello World Articles with the given tags.
     $entity_query = \Drupal::entityQuery('node')

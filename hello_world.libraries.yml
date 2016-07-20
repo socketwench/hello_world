@@ -1,0 +1,5 @@
+hello_world.hello_block:
+  version: VERSION
+  css:
+    theme:
+      css/hello-block.css: {}
