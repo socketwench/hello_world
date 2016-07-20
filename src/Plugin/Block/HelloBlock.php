@@ -71,7 +71,7 @@ class HelloBlock extends BlockBase {
 
     if (empty($result)) {
       // Display an empty message if there are no results.
-      $build['hello_block']['#markup'] = t('There are no Hello articles to display.');
+      $build['hello_block']['#markup'] = $config['empty_text'];
     }
     else {
       // Use Core's links template, but allow easy override.
@@ -100,15 +100,26 @@ class HelloBlock extends BlockBase {
   public function defaultConfiguration() {
     return [
       'hello_block_cache_max_age' => 60,
+      'empty_text' => t('There are no Hello articles to display.'),
     ];
   }
 
   public function blockForm($form, FormStateInterface $form_state) {
     $config = $this->getConfiguration();
 
+    $form['empty_text'] = [
+      '#type' => 'textfield',
+      '#title' => t('No-results text'),
+      '#description' => t('The text to display when no Hello World Articles are found.'),
+      '#default_value' => $config['empty_text'],
+      '#size' => 60,
+      '#maxlength' => 255,
+      '#required' => TRUE,
+    ];
+
     $form['cache_max_age'] = [
       '#type' => 'select',
-      '#title' => 'Cache results',
+      '#title' => t('Cache results'),
       '#default_value' => $config['hello_block_cache_max_age'],
       '#description' => t('The period to refresh the links displayed in the block.'),
       '#options' => [
