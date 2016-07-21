@@ -41,11 +41,23 @@ class HelloBlock extends BlockBase {
       ],
     ];
 
+    // Check if there are any selected sections.
+    $sections = $this->getSelectedSections();
+    if (empty($sections)) {
+      // If not, then display the empty text in the block...
+      $build['hello_block']['#markup'] = $this->configuration['empty_text'];
+
+      // ...and display a notice that the block needs to be configured.
+      drupal_set_message('Please configure the Hello World block.');
+
+      return $build;
+    }
+
     // Query for published Hello World Articles with the given tags.
     $entity_query = \Drupal::entityQuery('node')
       ->condition('status', '1')
       ->condition('type', 'hello_world_article')
-      ->condition('field_sections.entity.tid', $this->getSelectedSections(), 'IN');
+      ->condition('field_sections.entity.tid', $sections, 'IN');
 
     $result = $entity_query->execute();
 
