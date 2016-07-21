@@ -3,11 +3,9 @@
 namespace Drupal\hello_world\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Entity\Query\Sql\QueryFactory;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\TermStorage;
+use Drupal\Core\Cache\Cache;
 
 /**
  * Provides a 'HelloBlock' block.
@@ -18,13 +16,6 @@ use Drupal\taxonomy\TermStorage;
  * )
  */
 class HelloBlock extends BlockBase {
-
-  /**
-   * The entity query manager.
-   *
-   * @var \Drupal\Core\Entity\Query\Sql\QueryFactory
-   */
-  private $entityQueryManager;
 
   /**
    * {@inheritdoc}
@@ -132,7 +123,7 @@ class HelloBlock extends BlockBase {
         '60' => '1 minute',
         '300' => '5 minutes',
         '3600' => '1 hour',
-        \Drupal\Core\Cache\Cache::PERMANENT => 'Forever',
+        Cache::PERMANENT => 'Forever',
       ],
     ];
 
@@ -152,7 +143,7 @@ class HelloBlock extends BlockBase {
    * Gets a list of all sections and their keys.
    *
    * @return array
-   *  An array of section term labels keyed by tid.
+   *   An array of section term labels keyed by tid.
    */
   protected function getAllSections() {
     $terms = \Drupal::service('entity_type.manager')
@@ -172,10 +163,11 @@ class HelloBlock extends BlockBase {
    * Get a list of selected section labels.
    *
    * @return array
-   *  An array of selected section labels.
+   *   An array of selected section labels.
    */
   protected function getSelectedSections() {
     $values = array_values($this->configuration['terms']);
     return $values;
   }
+
 }

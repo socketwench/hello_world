@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains hello_world.module..
+ * Contains hello_world.module.
  */
 
 use Drupal\Core\Entity\EntityInterface;
@@ -15,10 +15,10 @@ function hello_world_entity_view(array &$build, EntityInterface $entity, EntityV
   if ($entity->getEntityTypeId() == 'node' &&
       $entity->bundle() == 'hello_world_article') {
 
-    // Alter build array to include message.
+    // Alter build array to include message right before the body.
     $build['hello_world'] = [
-      '#markup' => '<em>' . t('Content starts here!') . '</em>',
-      '#weight' => $build['body']['#weight'] - 1, // Just above the body.
+      '#markup' => '<p><em>' . t('Content starts here!') . '</em></p>',
+      '#weight' => $build['body']['#weight'] - 1,
     ];
   }
 }

@@ -14,5 +14,9 @@ A coding demonstration module.
 
 ## Design Process
 
-_Briefly document how these feature will be built in written format, describing the thinking and approach to fulfilling the requirements._
+The Hello, World block will be provided using the Drupal core block API. A custom block type will be provided by the module, and a pre-configured block instance will be included out of the box. The “Hello, World” text will be displayed as the block title, with a custom stylesheet attached to render it in bold.
+
+Hello World Article content will be retrieved using an entity query. Articles will then be loaded in a batch, reducing repeated queries on the database. The links will be then be outputted using the core links template.
+
+An entity view hook will be used to alter the display of Hello World Articles to include the cue text above the body field.
 
